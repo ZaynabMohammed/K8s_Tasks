@@ -29,7 +29,7 @@ NAME    READY   STATUS             RESTARTS   AGE
 nginx   1/1     Running            0          8s
 redis   1/1     Running            0          10m
 ```
-4-  create a ReplicaSet with name= replica-set-1, image= busybox, replicas= 3
+4-  Create a ReplicaSet with name= replica-set-1, image= busybox, replicas= 3
 ```bash
 $ kubectl apply -f replica_busybox.yml
 replicaset.apps/replica-set-1 created
@@ -73,7 +73,7 @@ replica-set-1-bmkcb   1/1     Running       0          3m30s
 replica-set-1-hphpk   1/1     Running       0          9m22s
 replica-set-1-sw9sm   1/1     Running       0          9m22s
   ```
-7- create a Deployment with name= deployment-1, image= busybox, replicas= 3
+7- Create a Deployment with name= deployment-1, image= busybox, replicas= 3
 ```bash
 $ kubectl apply -f deploy_busybox.yml
 deployment.apps/deployment-1 created
