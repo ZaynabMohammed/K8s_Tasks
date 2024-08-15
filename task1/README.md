@@ -30,8 +30,7 @@ nginx   1/1     Running            0          8s
 redis   1/1     Running            0          10m
 ```
 4-  Create a ReplicaSet with name= replica-set-1, image= busybox, replicas= 3
-- BusyBox is a minimalistic Linux environment, and by default, when you run a BusyBox container without specifying a command that keeps it running,  
-   it will execute its default command and then immediately exit, causing the container to stop.
+- BusyBox is a minimalistic Linux environment, and by default, when you run a BusyBox container without specifying a command that keeps it running, it will execute its default command and then immediately exit, causing the container to stop.
 - So, I use `command: ["sleep", "3600"] ` , to keep the container running for 3600 seconds (1 hour).
 ```bash
 $ kubectl apply -f replica_busybox.yml
