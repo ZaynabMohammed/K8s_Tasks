@@ -25,21 +25,25 @@ storage-provisioner                1/1     Running   1 (3m40s ago)   4m23s
 - Image: redis
 - Replicas: 2
 - Namespace: finance
-- Resources Requests:
-  CPU: .5 vcpu
-  Mem: 1G
-- Resources Limits:
-  CPU: 1 vcpu
-  Mem: 2G
+- Resources Requests:  
+  CPU: .5 vcpu  
+  Mem: 1G  
+- Resources Limits:  
+  CPU: 1 vcpu  
+  Mem: 2G  
 ```bash
 $ kubectl create ns finance
 namespace/finance created
 $ kubectl apply -f depolyment.yml
 deployment.apps/beta created
+```
+```bash
 $ kubectl get pods -n finance
 NAME                    READY   STATUS    RESTARTS   AGE
 beta-7b6855d758-jc2st   1/1     Running   0          5m49s
 beta-7b6855d758-wj6dw   1/1     Running   0          5m49s
+```
+```bash
 $ kubectl get all -n finance
 NAME                        READY   STATUS    RESTARTS   AGE
 pod/beta-7b6855d758-jc2st   1/1     Running   0          21m
