@@ -1,5 +1,5 @@
 # Task2 
-## [NameSpaces, Resources Requests & Limits]
+## [ NameSpaces, Resources Requests & Limits ]
 1- How many Namespaces exist on the system?
 ```bash
 $ kubectl get ns
@@ -62,7 +62,7 @@ $ kubectl get nodes
 NAME       STATUS   ROLES           AGE     VERSION
 minikube   Ready    control-plane   3m26s   v1.30.0
 ```
-## [Taint, Node Affinity]
+## [ Taint, Node Affinity ]
 5- Do you see any taints on master?
 - Start minikube with 2 nodes
 ```bash
@@ -82,7 +82,7 @@ Taints:             <none>
 $ kubectl label nodes minikube color=blue
 node/minikube labeled
 ```
-7- Create a new deployment named blue with the nginx image and 3 replicas, Set Node Affinity to the deployment to place the pods on `master` only
+7- Create a new deployment named blue with the nginx image and 3 replicas, Set Node Affinity to the deployment to place the pods on `master` only:  
 NodeAffinity: `requiredDuringSchedulingIgnoredDuringExecution`  
 Key: color  
 values: blue 
