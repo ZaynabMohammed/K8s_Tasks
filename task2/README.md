@@ -82,8 +82,8 @@ Taints:             <none>
 $ kubectl label nodes minikube color=blue
 node/minikube labeled
 ```
-7- Create a new deployment named blue with the nginx image and 3 replicas,  
-Set Node Affinity to the deployment to place the pods on `master` only.  
+7- Create a new deployment named blue with nginx image, 3 replicas, Set Node Affinity to the deployment to place pods on `master` only.  
+
 NodeAffinity: `requiredDuringSchedulingIgnoredDuringExecution`  
 Key: color  
 values: blue 
