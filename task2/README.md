@@ -1,4 +1,5 @@
-# Task2 [NameSpaces, Resources Requests & Limits]
+# Task2 
+## [NameSpaces, Resources Requests & Limits]
 1- How many Namespaces exist on the system?
 ```bash
 $ kubectl get ns
@@ -60,4 +61,38 @@ replicaset.apps/beta-7b6855d758   2         2         2       21m
 $ kubectl get nodes
 NAME       STATUS   ROLES           AGE     VERSION
 minikube   Ready    control-plane   3m26s   v1.30.0
+```
+## [Taint, Node Affinity]
+5- Do you see any taints on master?
+- Start minikube with 2 nodes
+```bash
+$ minikube start --nodes=2
+$ kubectl get nodes
+NAME           STATUS   ROLES           AGE     VERSION
+minikube       Ready    control-plane   3m27s   v1.30.0
+minikube-m02   Ready    <none>          2m33s   v1.30.0
+```
+- Check if control-plane node `master`, has any taint on it.
+```bash
+$ kubectl describe node minikube | grep -i taint
+Taints:             <none>
+```
+6- Apply a label color=blue to the master node
+```bash
+$ kubectl label nodes minikube color=blue
+node/minikube labeled
+```
+7- Create a new deployment named blue with the nginx image and 3 replicas, Set Node Affinity to the deployment to place the pods on `master` only
+NodeAffinity: `requiredDuringSchedulingIgnoredDuringExecution`  
+Key: color  
+values: blue 
+- We notice that all pods are created on minikube node `master`, due to using nodeAffinity to match `master` node lable.  
+```bash
+$ kubectl apply -f blue-deployment.yml
+deployment.apps/blue created
+$ kubectl get pods -o wide
+NAME                    READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+blue-665f875476-ftm5j   1/1     Running   0          91s   10.244.0.5   minikube   <none>           <none>
+blue-665f875476-hxw5l   1/1     Running   0          91s   10.244.0.3   minikube   <none>           <none>
+blue-665f875476-jhl7d   1/1     Running   0          91s   10.244.0.4   minikube   <none>           <none>
 ```
