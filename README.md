@@ -1,6 +1,9 @@
 # Kubernetes on Docker driver
-<img src="https://github.com/ZaynabMohammed/K8s_Tasks/blob/master/kubernetes-logo.png" width="250" height="190" >  
 
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <img src="https://www.vectorlogo.zone/logos/docker/docker-official.svg"; alt="Docker" width="100" height="100">
+  <img src="https://www.vectorlogo.zone/logos/kubernetes/kubernetes-ar21.svg"; alt="Kubernetes" width="100" height="100">
+</div>
 ## In This Repo, we will practise on some K8s tasks:  
 - Pods.    
 - ReplicaSet.    
