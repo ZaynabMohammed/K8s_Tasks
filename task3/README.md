@@ -1,6 +1,6 @@
 # [ DaemonSets, Services (ClusterIP, NodePort), StaticPods ]
 
-1- How many DaemonSets are created in the cluster in all namespaces?
+1- How many DaemonSets are created in the cluster in all namespaces?  
 2- what DaemonSets exist on the kube-system namespace?
 ```bash
 $ kubectl get daemonsets --all-namespaces
@@ -13,10 +13,10 @@ kube-system   kube-proxy   2         2         2       2            2           
 $ kubectl describe daemonset kube-proxy --namespace=kube-system | grep -i image
     Image:      registry.k8s.io/kube-proxy:v1.30.0
 ```
-4- Deploy a DaemonSet for FluentD Logging. Use the given specifications:
-Name: elasticsearch
-Namespace: kube-system
-Image: k8s.gcr.io/fluentd-elasticsearch:1.20
+4- Deploy a DaemonSet for FluentD Logging. Use the given specifications:  
+Name: elasticsearch  
+Namespace: kube-system  
+Image: k8s.gcr.io/fluentd-elasticsearch:1.20  
 ```bash
 $ kubectl apply -f daemonset.yml
 daemonset.apps/elasticsearch created
@@ -54,8 +54,7 @@ NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 backend-service   ClusterIP   10.111.227.203   <none>        80/TCP    4m15s
 kubernetes        ClusterIP   10.96.0.1        <none>        443/TCP   23d
 ```
-- Get into the Test-Pod and Curl the Backend Service from the Test Pod, from below response it means that the `test-pod` was able to successfully  
-   reach the `backend-service`, which is routing traffic to the `nginx-pod`.
+- Get into the Test-Pod and Curl the Backend Service from the Test Pod, from below response it means that the `test-pod` was able to successfully reach the `backend-service`, which is routing traffic to the `nginx-pod`.
 ```bash
 $ kubectl exec -it test-pod -- /bin/sh
 curl http://backend-service:80
@@ -136,8 +135,7 @@ CONTAINER ID   IMAGE                    COMMAND                  CREATED       S
 923e01ef0ab8   kicbase/stable:v0.0.44   "/usr/local/bin/entr…"   3 weeks ago   Up 36 minutes   127.0.0.1:32773->22/tcp, 127.0.0.1:32774->2376/tcp, 127.0.0.1:32775->5000/tcp, 127.0.0.1:32776->8443/tcp, 127.0.0.1:32777->32443/tcp   minikube-m02
 12280cac6eed   kicbase/stable:v0.0.44   "/usr/local/bin/entr…"   3 weeks ago   Up 37 minutes   127.0.0.1:32768->22/tcp, 127.0.0.1:32769->2376/tcp, 127.0.0.1:32770->5000/tcp, 127.0.0.1:32771->8443/tcp, 127.0.0.1:32772->32443/tcp   minikube
 ```
-- Second, Get into `minikube` node by running `docker exec -it minikube bash` and navigate to `/var/lib/kubelet` to check staticPodPath in config file,  
-  as shown below there are 4 static pods in control-plane node.
+- Second, Get into `minikube` node by running `docker exec -it minikube bash` and navigate to `/var/lib/kubelet` to check staticPodPath in config file, as shown below there are 4 static pods in control-plane node.
 ```bash
 $ docker exec -it minikube bash
 root@minikube:/# cd /var/lib/kubelet/
@@ -147,8 +145,7 @@ root@minikube:/var/lib/kubelet# cd /etc/kubernetes/manifests
 root@minikube:/etc/kubernetes/manifests# ls
 etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml
 ```
-- Third, Get into `minikube-m02` node by running `docker exec -it minikube-m02 bash` and navigate to `/var/lib/kubelet` to check staticPodPath in config file,  
- as shown below there are NO static pods in this worker node.
+- Third, Get into `minikube-m02` node by running `docker exec -it minikube-m02 bash` and navigate to `/var/lib/kubelet` to check staticPodPath in config file, as shown below there are NO static pods in this worker node.
 ```bash
 $ docker exec -it minikube-m02 bash
 root@minikube-m02:/# cd /var/lib/kubelet/
