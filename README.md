@@ -18,7 +18,7 @@
 - Configmap.
 - Secrets.
 - Persistent volumn.
-- - Persistent volumn Claim.
+- Persistent volumn Claim.
 - Multi-container.
 - init-container.
 - DaemonSets.
