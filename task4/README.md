@@ -79,10 +79,14 @@ Secret 4: MYSQL_ROOT_PASSWORD=password123
 
 - You can encode values based on `base64` encoding. using the following command in a Linux-based system:
 ```bash
-echo -n 'sql01' | base64
-echo -n 'user1' | base64
-echo -n 'password' | base64
-echo -n 'password123' | base64
+$ echo -n 'sql01' | base64
+c3FsMDE=
+$ echo -n 'user1' | base64
+dXNlcjE=
+$ echo -n 'password' | base64
+cGFzc3dvcmQ=
+$ echo -n 'password123' | base64
+cGFzc3dvcmQxMjM=
 ```
 - Create the Secret
 ```bash
@@ -104,3 +108,36 @@ $ kubectl get secrets
 NAME        TYPE     DATA   AGE
 db-secret   Opaque   4      108s
 ```
+10- Create a multi-container pod with 2 containers.  
+Name: yellow  
+Container 1 Name: lemon  
+Container 1 Image: busybox  
+Container 2 Name: gold  
+Container 2 Image: redis  
+```bash
+$ kubectl apply -f yellow-pod.yml
+pod/yellow created
+$ kubectl get pods
+NAME     READY   STATUS    RESTARTS   AGE
+yellow   2/2     Running   0          7s
+```
+11- Create a pod red with redis image and use an initContainer that uses the busybox image and sleeps for 20 seconds.
+```bash
+$ kubectl get pods
+NAME   READY   STATUS     RESTARTS   AGE
+red    0/1     Init:0/1   0          36s
+$ kubectl get pods
+NAME   READY   STATUS            RESTARTS   AGE
+red    0/1     PodInitializing   0          43s
+$ kubectl get pods
+NAME   READY   STATUS    RESTARTS   AGE
+red    1/1     Running   0          52s
+```
+12- Create a pod named print-envars-greeting.
+   1. Configure spec as, the container name should be print-env-container and use bash image.
+   2. Create three environment variables:
+       a. GREETING and its value should be “Welcome to”
+       b. COMPANY and its value should be “DevOps”
+       c. GROUP and its value should be “Industries”
+  3. Use command to echo ["$(GREETING) $(COMPANY) $(GROUP)"] message.
+  4. You can check the output using <kubctl logs -f [ pod-name ]> command.
