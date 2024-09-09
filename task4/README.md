@@ -111,7 +111,8 @@ db-secret   Opaque   4      108s
 ## A Quick comparsion between multi-container and init-container
 | multi-container   | init-container  | 
 |------------|------------|
-| Containers run together and often collaborate as part of the same application or service, sharing the Pod's resources and network.| Temporary container and execute setup tasks before the main application starts, ensuring a controlled startup sequence.| 
+| Containers run together and often collaborate as part of the same application or service, sharing the Pod's resources and network.| Temporary container and execute setup tasks before the main application starts, ensuring a controlled startup sequence.|   
+| Use Cases: Running sidecar containers alongside the main application. | Use Cases: Waiting for external dependencies to be ready, Initializing configurations or environment settings.|
 
 10- Create a multi-container pod with 2 containers.  
 Name: yellow  
@@ -144,5 +145,55 @@ red    1/1     Running   0          52s
        a. GREETING and its value should be “Welcome to”
        b. COMPANY and its value should be “DevOps”
        c. GROUP and its value should be “Industries”
-  3. Use command to echo ["$(GREETING) $(COMPANY) $(GROUP)"] message.
-  4. You can check the output using <kubctl logs -f [ pod-name ]> command.
+  3. Use command to `echo ["$(GREETING) $(COMPANY) $(GROUP)"] ` message.
+  4. You can check the output using `kubctl logs [ pod-name ]` command.
+```bash
+$ kubectl apply -f print-envars-greeting.yml
+pod/print-env-greeting created
+$ kubectl get pods
+NAME                 READY   STATUS              RESTARTS   AGE
+print-env-greeting   0/1     ContainerCreating   0          5s
+$ kubectl get pods
+NAME                 READY   STATUS      RESTARTS   AGE
+print-env-greeting   0/1     Completed   0          10s
+$ kubectl logs print-env-greeting
+Welcome to DevOps Industries
+```
+13- Where is the default kubeconfig file located in the current environment?
+14- How many clusters are defined in the default kubeconfig file?
+15- What is the user configured in the current context?
+16- Create a Persistent Volume with the given specification.
+Volume Name: pv-log
+Storage: 100Mi
+Access Modes: ReadWriteMany
+Host Path: /pv/log
+```bash
+$ kubectl apply -f pv.yml
+persistentvolume/pv-log created
+$ kubectl get pv
+NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pv-log   100Mi      RWX            Retain           Bound    default/claim-log-1                  <unset>                          24s
+```
+17- Create a Persistent Volume Claim with the given specification.
+Volume Name: claim-log-1
+Storage Request: 50Mi
+Access Modes: ReadWriteMany
+```bash
+$ kubectl apply -f pvc.yml
+persistentvolumeclaim/claim-log-1 created
+$ kubectl get pvc
+NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+claim-log-1   Bound    pv-log   100Mi      RWX                           <unset>                 23s
+```
+18- Create a webapp pod to use the persistent volume claim as its storage.
+Name: webapp
+Image Name: nginx
+Volume: PersistentVolumeClaim=claim-log-1
+Volume Mount: /var/log/nginx
+```bash
+$ kubectl apply -f pv-nginx.yml
+pod/webapp created
+$ kubectl get pods
+NAME     READY   STATUS    RESTARTS   AGE
+webapp   1/1     Running   0          17s
+```
