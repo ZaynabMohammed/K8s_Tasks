@@ -10,25 +10,6 @@
 | Task 1 | Pods, ReplicaSet, Deployment |
 |--------|--------------------------------|
 | Task 2 | NameSpaces, Resources Requests & Limits |
-|--------|--------------------------------|
 | Task 3 | DaemonSets, Services (ClusterIP, NodePort), StaticPods |
-|--------|--------------------------------|
-| Task 4 | ConfigMaps, Secrets, Multi-container, Init-container, PV, PVC |
+| Task 4 | ConfigMaps, Secrets, Multi-container, Init-container, Persistent volumn, Persistent volumn Claim |
 
-- Pods.    
-- ReplicaSet.    
-- Deployment.    
-- NameSpaces.    
-- Resources Requests.    
-- Resources Limitss.    
-- Taint & Tolerations.    
-- Node Affinity.    
-- Configmap.
-- Secrets.
-- Persistent volumn.
-- Persistent volumn Claim.
-- Multi-container.
-- init-container.
-- DaemonSets.
-- Services (ClusterIP, NodePort).
-- StaticPods.
