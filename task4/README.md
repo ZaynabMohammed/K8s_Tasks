@@ -46,7 +46,8 @@ kube-system   bootstrap-token-or0gwv   bootstrap.kubernetes.io/token   5      24
 1. `Token`: This is the service account token, which is used for authenticating to the Kubernetes API server.
 2. `CA Certificate`: The certificate authority (CA) bundle used to verify the API server’s certificate.
 3. `Namespace`: The namespace in which the pod is running.
-6- create a POD called db-pod with the image mysql:5.7 then check the POD status
+   
+6- Create a POD called db-pod with the image mysql:5.7 then check the POD status
 - Container `db-pod` in pod "db-pod" is waiting to start.
 ```bash
 $ kubectl run db-pod --image=mysql:5.7
