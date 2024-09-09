@@ -15,3 +15,12 @@
 - Resources Limitss.    
 - Taint & Tolerations.    
 - Node Affinity.    
+- Configmap.
+- Secrets.
+- Persistent volumn.
+- - Persistent volumn Claim.
+- Multi-container.
+- init-container.
+- DaemonSets.
+- Services (ClusterIP, NodePort).
+- StaticPods.
