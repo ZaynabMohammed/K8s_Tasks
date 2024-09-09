@@ -1,4 +1,4 @@
-# [ ConfigMaps, Secrets, Multi-container-pod, PV, PVC ]
+# [ ConfigMaps, Secrets, Multi-container, Init-container, PV, PVC ]
 
 1- How many ConfigMaps exist in the environment?
 ```bash
@@ -42,13 +42,13 @@ NAMESPACE     NAME                     TYPE                            DATA   AG
 kube-system   bootstrap-token-or0gwv   bootstrap.kubernetes.io/token   5      24d
 ```
 5- How many secrets are defined in the default-token secret?
-```bash
+```
 - There are no default-token secrets as, The default-token secret in Kubernetes is automatically created
-for each service account in a namespace, and it typically contains the following:    
+  for each service account in a namespace, and it typically contains the following:    
 1. `Token`: This is the service account token, which is used for authenticating to the Kubernetes API server.
 2. `CA Certificate`: The certificate authority (CA) bundle used to verify the API server’s certificate.
 3. `Namespace`: The namespace in which the pod is running.
-```  
+```
 6- Create a POD called db-pod with the image mysql:5.7 then check the POD status
 - Container `db-pod` in pod "db-pod" is waiting to start.
 ```bash
@@ -70,14 +70,14 @@ $ kubectl get pods
 NAME     READY   STATUS   RESTARTS      AGE
 db-pod   0/1     Error    5 (99s ago)   5m40s
 ```
-8- Create a new secret named db-secret with the data given below.
-Secret Name: db-secret
-Secret 1: MYSQL_DATABASE=sql01
-Secret 2: MYSQL_USER=user1
-Secret3: MYSQL_PASSWORD=password
-Secret 4: MYSQL_ROOT_PASSWORD=password123  
+8- Create a new secret named db-secret with the data given below.  
+Secret Name: db-secret  
+Secret 1: MYSQL_DATABASE=sql01  
+Secret 2: MYSQL_USER=user1  
+Secret3: MYSQL_PASSWORD=password  
+Secret 4: MYSQL_ROOT_PASSWORD=password123    
 
-- You can encode values based on `base64` encoding. using the following command in a Linux-based system:
+- You can encode values based on `base64` encoding. using the following command in a Linux-based system:  
 ```bash
 $ echo -n 'sql01' | base64
 c3FsMDE=
@@ -159,14 +159,21 @@ print-env-greeting   0/1     Completed   0          10s
 $ kubectl logs print-env-greeting
 Welcome to DevOps Industries
 ```
-13- Where is the default kubeconfig file located in the current environment?
+13- Where is the default kubeconfig file located in the current environment?  
+- It located at path `$HOME/.kube/config` .
 14- How many clusters are defined in the default kubeconfig file?
+- One cluster `minikube-cluster`
 15- What is the user configured in the current context?
-16- Create a Persistent Volume with the given specification.
-Volume Name: pv-log
-Storage: 100Mi
-Access Modes: ReadWriteMany
-Host Path: /pv/log
+- user: minikube && current-context: minikube
+```bash
+$ cat config | grep current-context
+current-context: minikube
+```
+16- Create a Persistent Volume with the given specification.  
+Volume Name: pv-log  
+Storage: 100Mi  
+Access Modes: ReadWriteMany  
+Host Path: /pv/log  
 ```bash
 $ kubectl apply -f pv.yml
 persistentvolume/pv-log created
@@ -174,10 +181,10 @@ $ kubectl get pv
 NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
 pv-log   100Mi      RWX            Retain           Bound    default/claim-log-1                  <unset>                          24s
 ```
-17- Create a Persistent Volume Claim with the given specification.
-Volume Name: claim-log-1
-Storage Request: 50Mi
-Access Modes: ReadWriteMany
+17- Create a Persistent Volume Claim with the given specification.  
+Volume Name: claim-log-1  
+Storage Request: 50Mi  
+Access Modes: ReadWriteMany  
 ```bash
 $ kubectl apply -f pvc.yml
 persistentvolumeclaim/claim-log-1 created
@@ -185,11 +192,11 @@ $ kubectl get pvc
 NAME          STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
 claim-log-1   Bound    pv-log   100Mi      RWX                           <unset>                 23s
 ```
-18- Create a webapp pod to use the persistent volume claim as its storage.
-Name: webapp
-Image Name: nginx
-Volume: PersistentVolumeClaim=claim-log-1
-Volume Mount: /var/log/nginx
+18- Create a webapp pod to use the persistent volume claim as its storage.  
+Name: webapp  
+Image Name: nginx  
+Volume: PersistentVolumeClaim=claim-log-1  
+Volume Mount: /var/log/nginx  
 ```bash
 $ kubectl apply -f pv-nginx.yml
 pod/webapp created
