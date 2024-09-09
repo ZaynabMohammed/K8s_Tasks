@@ -113,7 +113,7 @@ db-secret   Opaque   4      108s
 | multi-container   | init-container  | 
 |------------|------------|
 | Containers run together and often collaborate as part of the same application or service, sharing the Pod's resources and network.| Temporary container and execute setup tasks before the main application starts, ensuring a controlled startup sequence.|   
-| Use Cases: Running sidecar containers alongside the main application. | Use Cases: Waiting for external dependencies to be ready, Initializing configurations or environment settings.|
+|**Use Cases:** Running sidecar containers alongside the main application. | **Use Cases:** Waiting for external dependencies to be ready, Initializing configurations or environment settings.|
 
 **10- Create a multi-container pod with 2 containers.**    
 **Name: yellow**    
@@ -143,9 +143,9 @@ red    1/1     Running   0          52s
 **12- Create a pod named print-envars-greeting.**  
    **1. Configure spec as, the container name should be print-env-container and use bash image.**  
    **2. Create three environment variables:**  
-       a. GREETING and its value should be “Welcome to"  
-       b. COMPANY and its value should be “DevOps”   
-       c. GROUP and its value should be “Industries”  
+          a. GREETING and its value should be “Welcome to"  
+          b. COMPANY and its value should be “DevOps”   
+          c. GROUP and its value should be “Industries”  
   **3. Use command to `echo ["$(GREETING) $(COMPANY) $(GROUP)"] ` message.**    
   **4. You can check the output using `kubctl logs [ pod-name ]` command.**    
 ```bash
