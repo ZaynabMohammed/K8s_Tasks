@@ -7,8 +7,9 @@
 
 
 ## In This Repo, we will practise on some K8s tasks:  
-| Task 1 | Pods, ReplicaSet, Deployment |
+| Task-Name | Description |
 |--------|--------------------------------|
+| Task 1 | Pods, ReplicaSet, Deployment |
 | Task 2 | NameSpaces, Resources Requests & Limits |
 | Task 3 | DaemonSets, Services (ClusterIP, NodePort), StaticPods |
 | Task 4 | ConfigMaps, Secrets, Multi-container, Init-container, Persistent volumn, Persistent volumn Claim |
