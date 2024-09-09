@@ -43,6 +43,7 @@ kube-system   bootstrap-token-or0gwv   bootstrap.kubernetes.io/token   5      24
 ```
 **5- How many secrets are defined in the default-token secret?**  
 |- No `default-token` secrets in this environment as, The `default-token` secret in Kubernetes is automatically created for each service account in a namespace, and it typically contains the following:|
+|----------------------------|
   |1. **Token**: This is the service account token, which is used for authenticating to the Kubernetes API server.|
   |2. **CA Certificate**: The certificate authority (CA) bundle used to verify the API server’s certificate.|
   |3. **Namespace**: The namespace in which the pod is running.|
