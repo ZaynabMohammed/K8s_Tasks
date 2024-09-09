@@ -108,6 +108,11 @@ $ kubectl get secrets
 NAME        TYPE     DATA   AGE
 db-secret   Opaque   4      108s
 ```
+## A Quick comparsion between multi-container and init-container
+| multi-container   | init-container  | 
+|------------|------------|
+| Containers run together and often collaborate as part of the same application or service, sharing the Pod's resources and network.| Temporary container and execute setup tasks before the main application starts, ensuring a controlled startup sequence.| 
+
 10- Create a multi-container pod with 2 containers.  
 Name: yellow  
 Container 1 Name: lemon  
