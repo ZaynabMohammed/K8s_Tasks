@@ -117,15 +117,19 @@ Configure spec as `replica` should be `1`, selector's matchLabels should be `hap
 **ENV:**  
 1. The `first env` name should be `TZ` its value should be `Etc/UTC`,
 2. The `second env` name should be `POD_NAME` and its  
+```
 valueFrom:  
   fieldRef:  
-    fieldPath: should be metadata.name   
+    fieldPath: should be metadata.name
+```
 3. The `third env` name should be `POD_NAMESPACE` and its  
+```
 valueFrom:  
   fieldRef:  
     fieldPath: should be metadata.namespace
+```
 ```bash
-   $ kubectl apply -f haproxy-ingress-devops.yaml
+$ kubectl apply -f haproxy-ingress-devops.yaml
 deployment.apps/haproxy-ingress-devops created
 $ kubectl get deployments -n haproxy-controller-devops
 NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
