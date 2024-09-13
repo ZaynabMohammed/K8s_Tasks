@@ -66,8 +66,13 @@ Subjects:
   ServiceAccount  haproxy-service-account-devops  haproxy-controller-devops
 ```
 **5- Create a backend deployment which should be named as `backend-deployment-devops` under the same namespace, labels `run` should be `ingress-default-backend` under metadata.**
-Configure spec as `replica` should be `1` selector's matchLabels `run` should be `ingress-default-backend`. Template's labels run under metadata should be `ingress-default-backend`.  
-The container should named as `backend-container-devops`, use image `gcr.io/google_containers/defaultbackend:1.0` and its containerPort should be `8080`.
+**SPEC**  
+1. `replica` should be `1`.
+2. selector's matchLabels `run` should be `ingress-default-backend`.
+3. Template's labels run under metadata should be `ingress-default-backend`.
+4. The container should named as `backend-container-devops`.
+5. use image `gcr.io/google_containers/defaultbackend:1.0`.
+6. containerPort should be `8080`.
 ```bash
 $ kubectl apply -f backend-deployment-devops.yml
 deployment.apps/backend-deployment-devops created
@@ -76,8 +81,9 @@ NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
 backend-deployment-devops   1/1     1            1           18s
 ```
 6- **Create a `service` for backend which should be named as `service-backend-devops` under the same namespace, labels `run` should be `ingress-default-backend`.**  
-Configure spec as selector's `run` should be `ingress-default-backend`, port should be named as `port-backend`, protocol should be `TCP`,   
-port should be `8080` and targetPort should be `8080`.
+Configure spec as selector's `run` should be `ingress-default-backend`.  
+**ports**  
+1. name as `port-backend`, protocol should be `TCP`, port should be `8080` and targetPort should be `8080`.
 ```bash
 $ kubectl apply -f service-backend-devops.yml
 service/service-backend-devops created
@@ -87,12 +93,13 @@ service-backend-devops   ClusterIP   10.108.225.109   <none>        8080/TCP   1
 ```
 7- **Create a deployment for `frontend` which should be named `haproxy-ingress-devops` under the same namespace.** 
 Configure spec as `replica` should be `1`, selector's matchLabels should be `haproxy-ingress`, template's labels `run` should be `haproxy-ingress` under metadata.  
-**The container**  
+
+**The container**    
 1. name should be `ingress-container-devops` under the same service account `haproxy-service-account-devops`
 2. use image `haproxytech/kubernetes-ingress`
 3. give `args` as `--default-backend-service=haproxy-controller-devops/service-backend-devops`
 4. `resources requests` for `cpu` should be `500m` and for `memory` should be `50Mi`,
-5. `livenessProbe` httpGet path should be `/healthz` its port should be `1024`. 
+5. `livenessProbe` httpGet path should be `/healthz` its port should be `1024`.   
 **PORTS**  
 1. The `first port` name should be `http` and its containerPort should be `80`.    
 2. Thde `second port` name should be `https` and its containerPort should be `443`.    
@@ -118,9 +125,9 @@ haproxy-ingress-devops      1/1     1            1           72s
 8- **Create a `service` for frontend which should be named as `ingress-service-devops` under bsame namespace,**  
 labels `run` should be `haproxy-ingress`. Configure spec as selectors `run` should be `haproxy-ingress`, `type` should be `NodePort`. 
 **PORTS**
-1. The first port name should be `http`,its port should be `80`, protocol should be `TCP`, targetPort should be `80` and nodePort should be `32456`.
-2. The second port name should be `https`, its port should be `443`, protocol should be `TCP`, targetPort should be`443` and nodePort should be `32567`.
-3. The third port name should be `stat`, its port should be `1024`, protocol should be `TCP`, targetPort should be `1024` and nodePort should be `32678`.
+1. The first port name should be `http`,its port should be `80`, protocol should be `TCP`, targetPort should be `80` and nodePort `32456`.
+2. The second port name should be `https`, its port should be `443`, protocol should be `TCP`, targetPort should be`443` and nodePort `32567`.
+3. The third port name should be `stat`, its port should be `1024`, protocol should be `TCP`, targetPort should be `1024` and nodePort `32678`.
 ```bash
 $ kubectl apply -f service-ingress-devops.yml
 service/ingress-service-devops created
