@@ -16,8 +16,8 @@ default                          0         77s
 haproxy-service-account-devops   0         41s
 ```
 **3- Create a `ClusterRole` which should be named as `haproxy-cluster-role-devops`, to grant**  
-permissions: `"get", "list", "watch", "create", "patch", "update"`  
-to: `"Configmaps",”secrets”,"endpoints","nodes","pods","services","namespaces","events","serviceaccounts"`. 
+ - permissions: `"get", "list", "watch", "create", "patch", "update"`  
+ - to: `"Configmaps",”secrets”,"endpoints","nodes","pods","services","namespaces","events","serviceaccounts"`. 
 ```bash
 $ kubectl apply -f haproxy-cluster-role.yml
 clusterrole.rbac.authorization.k8s.io/haproxy-cluster-role-devops created
@@ -89,6 +89,7 @@ backend-deployment-devops   1/1     1            1           18s
 ```
 6- **Create a `service` for backend which should be named as `service-backend-devops` under the same namespace, labels `run` should be `ingress-default-backend`.**  
 Configure spec as selector's `run` should be `ingress-default-backend`.  
+
 **PORTS:**  
 1. name as `port-backend`, protocol should be `TCP`, port should be `8080` and targetPort should be `8080`.
 ```bash
@@ -115,11 +116,11 @@ Configure spec as `replica` should be `1`, selector's matchLabels should be `hap
    
 **ENV:**  
 1. The `first env` name should be `TZ` its value should be `Etc/UTC`,
-2. The `second env` name should be `POD_NAME` and its
+2. The `second env` name should be `POD_NAME` and its  
 valueFrom:  
   fieldRef:  
     fieldPath: should be metadata.name   
-3. The `third env` name should be `POD_NAMESPACE` and its
+3. The `third env` name should be `POD_NAMESPACE` and its  
 valueFrom:  
   fieldRef:  
     fieldPath: should be metadata.namespace
