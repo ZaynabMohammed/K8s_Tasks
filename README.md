@@ -13,4 +13,5 @@
 | Task 2 | NameSpaces, Resources Requests & Limits |
 | Task 3 | DaemonSets, Services (ClusterIP, NodePort), StaticPods |
 | Task 4 | ConfigMaps, Secrets, Multi-container, Init-container, Persistent volumn, Persistent volumn Claim |
+| Task 5 | ServiceAccount, ClusterRole, ClusterRoleBinding, Services, Deployments |
 
