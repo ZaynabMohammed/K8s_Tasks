@@ -1,4 +1,4 @@
-# [ ]
+# [ ServiceAccount, ClusterRole, ClusterRoleBinding, Services, Deployments ]
 **1- Create a namespace haproxy-controller-devops.**
 ```bash
 $ kubectl create namespace haproxy-controller-devops
